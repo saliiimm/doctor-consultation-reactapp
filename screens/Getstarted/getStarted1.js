@@ -45,23 +45,22 @@ export default function GetStarted1({ navigation }) {
     {
       id: "01",
       image: require("../../assets/imageGetStarted1.png"),
-      title: "Find Trusted Doctors",
+      title: "The medical care you need",
       paragraph:
-        " Contrary to popular belief,Lorem ipsum is not simpli random text,It has roots in a piece of it over 2000 years old",
+        " Our doctor consultation app makes it easy to get the medical care you need, when you need it.",
     },
     {
       id: "02",
       image: require("../../assets/imageGetStarted2.png"),
-      title: "Find Trusted Doctors",
+      title: "Save time and money",
       paragraph:
-        " Contrary to popular belief,Lorem ipsum is not simpli random text,It has roots in a piece of it over 2000 years old",
+        " Our doctor consultation app is a great way to save time and money on your healthcare.",
     },
     {
       id: "03",
       image: require("../../assets/imageGetStarted3.png"),
-      title: "Find Trusted Doctors",
-      paragraph:
-        " Contrary to popular belief,Lorem ipsum is not simpli random text,It has roots in a piece of it over 2000 years old",
+      title: " Get peace of mind ",
+      paragraph: " you have access to qualified medical professionals 24/7.",
     },
   ];
 

@@ -141,7 +141,7 @@ export default function GetStarted1({ navigation }) {
           <Text style={styles.btntextstart}>Get Started</Text>
         </TouchableOpacity>
         <TouchableOpacity
-          onPress={() => navigation.navigate("Home")}
+          onPress={() => navigation.navigate("HomeRoute")}
           style={styles.skipbtn}>
           <Text style={styles.btnskiptext}>Skip</Text>
         </TouchableOpacity>

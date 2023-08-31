@@ -44,7 +44,7 @@ function HomeRoute() {
         }}
       />
       <Tab.Screen
-        name="Profil"
+        name="Profile"
         component={Profil}
         options={{
           tabBarIcon: ({ color }) => (

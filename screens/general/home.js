@@ -7,6 +7,7 @@ import {
   Dimensions,
   Image,
   FlatList,
+  ScrollView,
 } from "react-native";
 import {
   Ionicons,
@@ -15,6 +16,7 @@ import {
   FontAwesome5,
   MaterialIcons,
   MaterialCommunityIcons,
+  AntDesign,
 } from "@expo/vector-icons";
 
 export default function Home({ navigation }) {
@@ -71,23 +73,26 @@ export default function Home({ navigation }) {
     {
       id: "01",
       image: require("../../assets/doteurHomme.jpeg"),
-      name: "Dr. Salim",
+      name: "Dr.Salim",
       speciality: "Neurologist",
       Stars: "⭐⭐⭐⭐⭐",
+      prixHeure: "300",
     },
     {
       id: "02",
-      image: require("../../assets/docteurHomme2.jpeg"),
+      image: require("../../assets/surgeon.jpg"),
       name: "Dr. Sidali",
-      speciality: "Cardiologist",
+      speciality: "I AM A SURGEON",
       Stars: "⭐⭐⭐⭐⭐",
+      prixHeure: "150",
     },
     {
       id: "03",
       image: require("../../assets/medfemme2.jpeg"),
       name: "Dr. Soundous",
-      speciality: "Dentist",
+      speciality: "Gynecologist",
       Stars: "⭐⭐⭐",
+      prixHeure: "99",
     },
     {
       id: "04",
@@ -95,6 +100,7 @@ export default function Home({ navigation }) {
       name: "Dr. Mayassa",
       speciality: "Ophtalmologue",
       Stars: "⭐⭐",
+      prixHeure: "17",
     },
     {
       id: "05",
@@ -102,101 +108,174 @@ export default function Home({ navigation }) {
       name: "Dr. Grey",
       speciality: "Psychiatry",
       Stars: "⭐",
+      prixHeure: "22",
     },
   ];
   return (
     <View style={styles.container}>
-      <View style={[styles.header, { width: screenWidth }]}>
-        <View style={[styles.titresProfil, { width: "100%" }]}>
-          <View style={styles.titles}>
-            <Text style={styles.title1}>Hi Salim!</Text>
-            <Text style={styles.title2}>Find Your Doctor</Text>
+      <ScrollView>
+        <View style={[styles.header, { width: screenWidth }]}>
+          <View style={[styles.titresProfil, { width: "100%" }]}>
+            <View style={styles.titles}>
+              <Text style={styles.title1}>Hi Salim!</Text>
+              <Text style={styles.title2}>Find Your Doctor</Text>
+            </View>
+            <Image
+              source={require("../../assets/profilUnknown.png")}
+              style={styles.img}
+            />
           </View>
-          <Image
-            source={require("../../assets/profilUnknown.png")}
-            style={styles.img}
-          />
+          <View style={[styles.searchBar, { width: "80%" }]}>
+            <Ionicons
+              name="search"
+              size={24}
+              color="grey"
+              style={{ marginLeft: 6 }}
+            />
+            <TextInput
+              placeholder="Search..."
+              style={[styles.input, { width: "80%" }]}></TextInput>
+            <Ionicons
+              name="close"
+              size={24}
+              color="grey"
+              style={{ marginRight: 6 }}
+            />
+          </View>
         </View>
-        <View style={[styles.searchBar, { width: "80%" }]}>
-          <Ionicons
-            name="search"
-            size={24}
-            color="grey"
-            style={{ marginLeft: 6 }}
-          />
-          <TextInput
-            placeholder="Search..."
-            style={[styles.input, { width: "80%" }]}></TextInput>
-          <Ionicons
-            name="close"
-            size={24}
-            color="grey"
-            style={{ marginRight: 6 }}
-          />
-        </View>
-      </View>
 
-      <FlatList
-        horizontal
-        showsHorizontalScrollIndicator={false}
-        style={styles.scrollviewDomaines}
-        data={FlatListData}
-        keyExtractor={(item) => item.id}
-        renderItem={({ item, index }) => (
-          <View
-            style={[
-              styles.domaineCard,
-              { backgroundColor: item.backgroundColor },
-            ]}>
-            <TouchableOpacity>{item.image}</TouchableOpacity>
-          </View>
-        )}
-      />
-      <View style={styles.popularDoctor}>
-        <View style={[styles.popularbtns, { width: screenWidth }]}>
-          <Text style={{ fontSize: 20, fontWeight: "800" }}>
-            Popular Doctors
-          </Text>
-          <TouchableOpacity>
-            <Text>See all {">"}</Text>
-          </TouchableOpacity>
-        </View>
         <FlatList
           horizontal
           showsHorizontalScrollIndicator={false}
-          style={styles.scrollviewDocteurs}
-          data={DoctorData}
+          style={styles.scrollviewDomaines}
+          data={FlatListData}
           keyExtractor={(item) => item.id}
           renderItem={({ item, index }) => (
-            <View style={[styles.domaineCardDocteur]}>
-              <Image
-                source={item.image}
-                style={{
-                  width: "100%",
-                  height: "60%",
-                  resizeMode: "cover",
-                  borderTopRightRadius: 15,
-                  borderTopLeftRadius: 15,
-                }}
-              />
-              <Text style={{ fontSize: 25, fontWeight: "600", marginTop: 15 }}>
-                {item.name}
-              </Text>
-              <Text
-                style={{
-                  fontSize: 15,
-                  fontWeight: "400",
-                  color: "grey",
-                  marginBottom: 5,
-                }}>
-                {item.speciality}
-              </Text>
-              <Text>{item.Stars}</Text>
+            <View
+              style={[
+                styles.domaineCard,
+                { backgroundColor: item.backgroundColor },
+              ]}>
+              <TouchableOpacity>{item.image}</TouchableOpacity>
             </View>
           )}
         />
-      </View>
-      <View></View>
+        <View style={styles.popularDoctor}>
+          <View style={[styles.popularbtns, { width: screenWidth }]}>
+            <Text style={{ fontSize: 20, fontWeight: "800" }}>
+              Popular Doctors
+            </Text>
+            <TouchableOpacity>
+              <Text>See all {">"}</Text>
+            </TouchableOpacity>
+          </View>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.scrollviewDocteurs}
+            data={DoctorData}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => (
+              <View style={[styles.domaineCardDocteur]}>
+                <Image
+                  source={item.image}
+                  style={{
+                    width: "100%",
+                    height: "60%",
+                    resizeMode: "cover",
+                    borderTopRightRadius: 15,
+                    borderTopLeftRadius: 15,
+                  }}
+                />
+                <Text
+                  style={{ fontSize: 25, fontWeight: "600", marginTop: 15 }}>
+                  {item.name}
+                </Text>
+                <Text
+                  style={{
+                    fontSize: 15,
+                    fontWeight: "400",
+                    color: "grey",
+                    marginBottom: 5,
+                    textAlign: "center",
+                  }}>
+                  {item.speciality}
+                </Text>
+                <Text>{item.Stars}</Text>
+              </View>
+            )}
+          />
+        </View>
+        <View style={styles.featuredoctor}>
+          <View style={[styles.popularbtns, { width: screenWidth }]}>
+            <Text style={{ fontSize: 20, fontWeight: "800" }}>
+              Feature Doctors
+            </Text>
+            <TouchableOpacity>
+              <Text>See all {">"}</Text>
+            </TouchableOpacity>
+          </View>
+          <FlatList
+            horizontal
+            showsHorizontalScrollIndicator={false}
+            style={styles.scrollviewDocteurs}
+            data={DoctorData}
+            keyExtractor={(item) => item.id}
+            renderItem={({ item, index }) => (
+              <View style={styles.featureCardDocteur}>
+                <View
+                  style={{
+                    alignItems: "center",
+                    justifyContent: "space-between",
+                    flexDirection: "row",
+                    width: "100%",
+                    paddingHorizontal: 7,
+                    margin: 5,
+                  }}>
+                  <FontAwesome5 name="heart" size={12} color="grey" />
+                  <View
+                    style={{
+                      alignItems: "center",
+                      justifyContent: "space-between",
+                      flexDirection: "row",
+                    }}>
+                    <AntDesign name="star" size={12} color="gold" />
+                    <Text
+                      style={{
+                        marginLeft: 5,
+                      }}>
+                      3.7
+                    </Text>
+                  </View>
+                </View>
+                <Image
+                  source={item.image}
+                  style={{
+                    borderRadius: 100,
+                    width: 50,
+                    height: 50,
+                    marginTop: 10,
+                  }}
+                />
+                <Text
+                  style={{
+                    fontSize: 16,
+                    fontWeight: "600",
+                    marginTop: 15,
+                    color: "#333333",
+                  }}>
+                  {item.name}
+                </Text>
+                <Text style={{ color: "grey" }}>
+                  <Text style={{ color: "#26b280" }}>$</Text>
+                  {item.prixHeure}
+                  /hours
+                </Text>
+              </View>
+            )}
+          />
+        </View>
+      </ScrollView>
     </View>
   );
 }
@@ -204,7 +283,7 @@ export default function Home({ navigation }) {
 const styles = StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "white",
+    backgroundColor: "#f9f5f5",
     alignItems: "center",
     justifyContent: "flex-start",
   },
@@ -256,8 +335,10 @@ const styles = StyleSheet.create({
     borderWidth: 0.5,
   },
   scrollviewDomaines: {
-    height: 200,
-    marginTop: 50,
+    height: 90,
+    marginTop: 48,
+    marginBottom: 10,
+    flexGrow: 0,
     marginHorizontal: 8,
   },
   domaineCard: {
@@ -269,9 +350,19 @@ const styles = StyleSheet.create({
     margin: 8,
     borderRadius: 6,
   },
+  featureCardDocteur: {
+    alignItems: "center",
+    justifyContent: "flex-start",
+    height: 160,
+    width: 120,
+    margin: 10,
+    borderRadius: 6,
+    backgroundColor: "white",
+  },
   popularDoctor: {
-    height: 400,
-    marginBottom: 30,
+    height: 350,
+    flexGrow: 0,
+    marginBottom: 0,
   },
   popularbtns: {
     alignItems: "center",
@@ -284,7 +375,7 @@ const styles = StyleSheet.create({
     justifyContent: "flex-start",
     height: 300,
     width: 230,
-    margin: 10,
+    marginHorizontal: 10,
     backgroundColor: "white",
     borderWidth: 0.5,
     borderColor: "grey",
@@ -293,4 +384,5 @@ const styles = StyleSheet.create({
   scrollviewDocteurs: {
     marginTop: 10,
   },
+  featuredoctor: {},
 });

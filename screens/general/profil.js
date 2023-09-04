@@ -1,11 +1,61 @@
 import { useState } from "react";
-import { StyleSheet, Text, View, TouchableOpacity, Image } from "react-native";
-import { Ionicons, AntDesign, Entypo } from "@expo/vector-icons";
+import {
+  StyleSheet,
+  Text,
+  View,
+  TouchableOpacity,
+  Image,
+  FlatList,
+} from "react-native";
+import { ScrollView } from "react-native-virtualized-view";
+import {
+  Ionicons,
+  AntDesign,
+  Entypo,
+  Fontisto,
+  MaterialIcons,
+  FontAwesome5,
+} from "@expo/vector-icons";
 export default function Profil({ navigation }) {
   const [switchActive, setSwitchactive] = useState(false);
   const handleSwitch = () => {
     setSwitchactive(!switchActive);
   };
+
+  const NotifData = [
+    {
+      id: "01",
+      sender: "Dr Ghalem",
+      type: "congé",
+      debutconge: "20/01/2024",
+      finconge: "15/02/2024",
+      message: "Je ne serais pas disponible car je serais en periode de congé.",
+      time: "20 min ago",
+    },
+    {
+      id: "02",
+      sender: "Dr Ouahabbi",
+      type: "maladie",
+      message:
+        "Je ne serais pas disponible demain car malade,nous sommes désolé du désagrement ,si vous avez prit un rendez vous pour ce jour ci il sera reporté à une date ultérieure",
+      time: "2 weeks ago",
+    },
+    {
+      id: "03",
+      sender: "Dr Medjber",
+      type: "confirm",
+      date: "03/01/2004",
+      message: "Votre rendez vous a été confirmé.",
+      time: "1 hour ago",
+    },
+    {
+      id: "04",
+      sender: "Dr Chouiref",
+      type: "dossier",
+      message: "Vous avez reçu de nouveaux dossiers.",
+      time: "2 hours ago",
+    },
+  ];
   return (
     <View style={styles.container}>
       <Text style={{ fontSize: 27, marginTop: 50, fontWeight: "800" }}>
@@ -122,9 +172,120 @@ export default function Profil({ navigation }) {
           </View>
         </View>
       ) : (
-        <View style={{ marginTop: 25, alignItems: "center" }}>
-          <Text>Partie notifs</Text>
-        </View>
+        <ScrollView>
+          <View style={{ marginTop: 25, alignItems: "center", width: "100%" }}>
+            <FlatList
+              style={styles.notifs}
+              data={NotifData}
+              keyExtractor={(item) => item.id}
+              renderItem={({ item }) => {
+                if (item.type === "congé") {
+                  return (
+                    <View style={[styles.notifsCard, { marginHorizontal: 15 }]}>
+                      <View style={styles.notifHeader}>
+                        <View style={styles.headerIcon}>
+                          <Text style={styles.HeaderColor}>{item.sender}</Text>
+                          <Fontisto
+                            name="holiday-village"
+                            size={22}
+                            color="#E0CDA9"
+                            style={styles.notifIcons}
+                          />
+                        </View>
+
+                        <Text style={styles.HeaderColor}>{item.time}</Text>
+                      </View>
+
+                      <Text style={styles.message}>{item.message}</Text>
+                      <Text
+                        style={[styles.date, { padding: 5, paddingLeft: 10 }]}>
+                        Début congé:{item.debutconge}
+                      </Text>
+                      <Text
+                        style={[
+                          styles.date,
+                          { padding: 5, paddingLeft: 10, paddingBottom: 10 },
+                        ]}>
+                        Fin congé :{item.finconge}
+                      </Text>
+                    </View>
+                  );
+                } else if (item.type === "confirm") {
+                  return (
+                    <View style={[styles.notifsCard, { marginHorizontal: 15 }]}>
+                      <View style={styles.notifHeader}>
+                        <View style={styles.headerIcon}>
+                          <Text style={styles.HeaderColor}>{item.sender}</Text>
+                          <Ionicons
+                            name="checkmark-circle-sharp"
+                            size={22}
+                            color="#26b280"
+                            style={styles.notifIcons}
+                          />
+                        </View>
+
+                        <Text style={styles.HeaderColor}>{item.time}</Text>
+                      </View>
+                      <Text style={styles.message}> {item.message}</Text>
+                      <Text style={styles.date}>Date du RDV : {item.date}</Text>
+                    </View>
+                  );
+                } else if (item.type === "dossier") {
+                  return (
+                    <View style={[styles.notifsCard, { marginHorizontal: 15 }]}>
+                      <View style={styles.notifHeader}>
+                        <View style={styles.headerIcon}>
+                          <Text style={styles.HeaderColor}>{item.sender}</Text>
+                          <FontAwesome5
+                            name="file-pdf"
+                            size={22}
+                            color="red"
+                            style={styles.notifIcons}
+                          />
+                        </View>
+
+                        <Text style={styles.HeaderColor}>{item.time}</Text>
+                      </View>
+                      <Text style={[styles.message, {}]}>{item.message}</Text>
+                      <View
+                        style={{
+                          flexDirection: "row",
+                          justifyContent: "flex-end",
+                          paddingRight: 25,
+                        }}>
+                        <TouchableOpacity style={styles.btnTelecharger}>
+                          <Text style={{ color: "white", fontWeight: "600" }}>
+                            Télécharger
+                          </Text>
+                        </TouchableOpacity>
+                      </View>
+                    </View>
+                  );
+                } else {
+                  return (
+                    <View style={[styles.notifsCard, { marginHorizontal: 15 }]}>
+                      <View style={styles.notifHeader}>
+                        <View style={styles.headerIcon}>
+                          <Text style={styles.HeaderColor}>{item.sender}</Text>
+                          <MaterialIcons
+                            name="sick"
+                            size={23}
+                            color="#5472AE"
+                            style={styles.notifIcons}
+                          />
+                        </View>
+
+                        <Text style={styles.HeaderColor}>{item.time}</Text>
+                      </View>
+
+                      <Text style={[styles.message, {}]}>{item.message}</Text>
+                    </View>
+                  );
+                }
+              }}
+            />
+          </View>
+        </ScrollView>
       )}
     </View>
   );
@@ -170,4 +331,45 @@ const styles = StyleSheet.create({
     width: 320,
     borderRadius: 5,
   },
+  notifsCard: {
+    marginVertical: 10,
+    backgroundColor: "white",
+    borderRadius: 10,
+  },
+  notifHeader: {
+    alignItems: "center",
+    justifyContent: "space-between",
+    flexDirection: "row",
+    paddingHorizontal: 10,
+    marginVertical: 10,
+  },
+  HeaderColor: {
+    color: "grey",
+  },
+  message: {
+    color: "black",
+    padding: 10,
+    fontWeight: "500",
+    fontSize: 15,
+  },
+  date: {
+    color: "#26b280",
+    padding: 10,
+    fontWeight: "500",
+    fontSize: 13,
+  },
+  btnTelecharger: {
+    width: 110,
+    height: 35,
+    backgroundColor: "#26b280",
+    marginBottom: 10,
+    marginLeft: 15,
+    alignItems: "center",
+    justifyContent: "center",
+    borderRadius: 20,
+  },
+  notifIcons: {
+    marginLeft: 10,
+  },
+  headerIcon: { flexDirection: "row" },
 });
